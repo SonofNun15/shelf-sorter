@@ -1,15 +1,26 @@
-export function first<TItem>(array: TItem[]): TItem | null {
-  if (array?.length > 0) {
-    return array[0];
-  }
+export function ensureArray<TItem>(array: TItem[] | null): TItem[] {
+  return array ?? [];
+}
 
-  return null;
+export function first<TItem>(array: TItem[]): TItem | null {
+  return ensureArray(array).length > 0
+    ? array[0]
+    : null;
 }
 
 export function any<TItem>(array: TItem[], predicate: ((item: TItem) => boolean)): boolean {
-  if (array === null) {
-    return false;
-  }
+  return ensureArray(array)
+    .filter(predicate)
+    .length > 0;
+}
 
-  return array.filter(predicate).length > 0;
+export function split<TItem>(
+  array: TItem[],
+  predicate: ((item: TItem) => boolean)
+): [TItem[], TItem[]] {
+  array = ensureArray(array);
+  return [
+    array.filter(predicate),
+    array.filter(item => !predicate(item)),
+  ];
 }

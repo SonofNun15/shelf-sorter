@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable, of, switchMap, map } from 'rxjs';
+import { from, Observable, switchMap, map } from 'rxjs';
 import { GameSummary } from '../models/game-summary';
 import { parseStringPromise } from 'xml2js';
 import { any, first } from '../utils/array';
-
-const baseBoardGameGeekUrl = 'https://boardgamegeek.com/xmlapi2';
+import { baseBoardGameGeekUrl } from './board-game-geek';
 
 interface BoardGameGeekQueryResult {
   items: {
@@ -48,7 +47,7 @@ export class GameFinderService {
         return gamesWithPrimaryNames.map(queryItem => ({
           id: queryItem.$.id,
           name: first(queryItem.name.filter(name => name.$.type === 'primary'))?.$.value ?? '',
-          publishYear: first(queryItem.yearpublished)?.$.value ?? '',
+          yearPublished: first(queryItem.yearpublished)?.$.value ?? '',
         }));
       }),
     );

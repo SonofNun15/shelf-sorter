@@ -1,11 +1,11 @@
 export interface GameSummary {
   id: string;
   name: string;
-  publishYear: string;
+  yearPublished: string;
 }
 
-export const emptyGameSummary = {
+export const emptyGameSummary: GameSummary = {
   name: '',
   id: '',
-  publishYear: '',
+  yearPublished: '',
 };

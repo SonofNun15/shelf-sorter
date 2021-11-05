@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GameSummary } from 'src/app/models/game-summary';
+import { ShelfService } from 'src/app/services/shelf.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit {
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class MainComponent {
+  constructor(private shelfService: ShelfService) { }
 
   addToShelf(game: GameSummary) {
-    console.log(`Add game to shelf '${game.name}''`);
+    const sub = this.shelfService.addToShelf(game).subscribe(() => {
+      sub.unsubscribe();
+      console.log('finished');
+    });
   }
 }
