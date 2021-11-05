@@ -1,1 +1,5 @@
-<p>list works!</p>
+<ul class="shelf">
+  <li class="item" *ngFor="let game of games$ | async">
+    <app-game-display [game]="game"></app-game-display>
+  </li>
+</ul>

@@ -16,6 +16,7 @@
     <ng-template #resultsDisplay>
       <ng-container *ngIf="games.length > 0; else empty">
         <app-game-result
+          tabindex="0"
           *ngFor="let game of games"
           [game]="game"
           class="game-result"

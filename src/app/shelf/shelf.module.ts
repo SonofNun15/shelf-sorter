@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from'@angular/material/progress-spinner';
 import { ListComponent } from './list/list.component';
 import { AddGamesComponent } from './add-games/add-games.component';
 import { GameResultComponent } from './game-result/game-result.component';
+import { GameDisplayComponent } from './game-display/game-display.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { GameResultComponent } from './game-result/game-result.component';
     ListComponent,
     AddGamesComponent,
     GameResultComponent,
+    GameDisplayComponent,
   ],
   imports: [
     CommonModule,
