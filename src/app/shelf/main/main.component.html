@@ -1,7 +1,6 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="over" position="end">
     <app-add-games
-      (addGame)="addToShelf($event)"
       (close)="sidenav.close()"
     ></app-add-games>
   </mat-sidenav>

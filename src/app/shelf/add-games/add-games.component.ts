@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject, switchMap, tap } from 'rxjs';
 import { GameSummary } from 'src/app/models/game-summary';
 import { GameFinderService } from 'src/app/services/game-finder.service';
 
@@ -14,21 +14,22 @@ export class AddGamesComponent {
     name: new FormControl(''),
   });
 
-  results: Observable<GameSummary[]> | null = null;
-
-  @Output()
-  addGame = new EventEmitter<GameSummary>();
+  searching = false;
+  searchSubject = new Subject<string>();
+  results$: Observable<GameSummary[]> | null = null;
 
   @Output()
   close = new EventEmitter();
 
-  constructor(private gameService: GameFinderService) { }
-
-  search() {
-    this.results = this.gameService.lookup(this.searchForm.value.name);
+  constructor(private gameService: GameFinderService) {
+    this.results$ = this.searchSubject.asObservable().pipe(
+      switchMap(gameName => this.gameService.lookup(gameName)),
+      tap(_ => this.searching = false),
+    );
   }
 
-  onAddGame(game: GameSummary) {
-    this.addGame.emit(game);
+  search({ name }: { name: string }) {
+    this.searching = true;
+    this.searchSubject.next(name);
   }
 }
