@@ -1,0 +1,24 @@
+// .app {
+//   height: 100vh;
+//   width: 100vw;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: stretch;
+//   align-items: stretch;
+// }
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-title {
+  margin-right: 1rem;
+}

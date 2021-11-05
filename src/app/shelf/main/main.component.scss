@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.mat-sidenav-container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+
+  .mat-drawer-backdrop.mat-drawer-shown {
+    opacity: 0.2;
+  }
+}
