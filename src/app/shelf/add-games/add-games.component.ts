@@ -16,7 +16,7 @@ export class AddGamesComponent {
 
   searching = false;
   searchSubject = new Subject<string>();
-  results$: Observable<GameSummary[]> | null = null;
+  results$: Observable<GameSummary[]>;
 
   @Output()
   close = new EventEmitter();
