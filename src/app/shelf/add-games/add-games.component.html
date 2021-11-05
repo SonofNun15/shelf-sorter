@@ -1,0 +1,33 @@
+<div class="content">
+  <form [formGroup]="searchForm">
+    <mat-form-field class="search" appearance="fill">
+      <mat-label>Board game name</mat-label>
+      <input matInput formControlName="name" />
+      <button (click)="search()" mat-icon-button matSuffix aria-label="search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+  <section *ngIf="results != null">
+    <h4 class="mat-h4">Results</h4>
+    <ng-container *ngIf="results | async as games; else spinner">
+      <ng-container *ngIf="games.length > 0">
+        <app-game-result
+          *ngFor="let game of games"
+          [game]="game"
+          class="game-result"
+          (addGame)="onAddGame($event)"
+        ></app-game-result>
+      </ng-container>
+      <ng-template #empty>
+        <span class="muted mat-body">No results.</span>
+      </ng-template>
+    </ng-container>
+    <ng-template #spinner>
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </ng-template>
+  </section>
+  <button class="close" mat-icon-button (click)="close.emit()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
