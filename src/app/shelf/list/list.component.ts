@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { GameDetail } from 'src/app/models/game-detail';
-import { ShelfService } from 'src/app/services/shelf.service';
+import { IStore } from 'src/app/store';
+import { removeGame } from '../shelf.actions';
+import { selectGames } from '../shelf.selectors';
 
 @Component({
   selector: 'app-list',
@@ -11,11 +14,11 @@ import { ShelfService } from 'src/app/services/shelf.service';
 export class ListComponent {
   games$: Observable<GameDetail[]>;
 
-  constructor(private shelf: ShelfService) {
-    this.games$ = this.shelf.games$;
+  constructor(private store: Store<IStore>) {
+    this.games$ = this.store.select(selectGames);
   }
 
   removeGame(game: GameDetail) {
-    this.shelf.removeFromShelf(game);
+    this.store.dispatch(removeGame({ game }));
   }
 }

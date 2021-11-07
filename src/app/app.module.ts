@@ -7,14 +7,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { effects, store } from './store';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { VarDirective } from './utils/app-var';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    // VarDirective,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,8 @@ import { StoreModule } from '@ngrx/store';
 
     MatButtonModule,
     MatToolbarModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(store),
+    EffectsModule.forRoot(effects),
   ],
   providers: [],
   bootstrap: [AppComponent]

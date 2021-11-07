@@ -19,7 +19,9 @@
           tabindex="0"
           *ngFor="let game of games"
           [game]="game"
+          [addingGame]="exists(adding$ | async)"
           class="game-result"
+          (addGame)="addGame($event)"
         ></app-game-result>
       </ng-container>
       <ng-template #empty>

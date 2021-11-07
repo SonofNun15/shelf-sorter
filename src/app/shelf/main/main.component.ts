@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { GameDetail } from 'src/app/models/game-detail';
-import { ShelfService } from 'src/app/services/shelf.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { IStore } from 'src/app/store';
+import { selectGameCount } from '../shelf.selectors';
 
 @Component({
   selector: 'app-main',
@@ -11,9 +12,7 @@ import { ShelfService } from 'src/app/services/shelf.service';
 export class MainComponent {
   gameCount$: Observable<number>;
 
-  constructor(private shelf: ShelfService) {
-    this.gameCount$ = this.shelf.games$.pipe(
-      map(games => games.length),
-    );
+  constructor(private store: Store<IStore>) {
+    this.gameCount$ = this.store.select(selectGameCount);
   }
 }
