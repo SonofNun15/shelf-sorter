@@ -13,10 +13,15 @@ export class GameResultComponent {
   @Input()
   addingGame = false;
 
+  @Input()
+  onShelf = false;
+
   @Output()
   addGame = new EventEmitter<GameSummary>();
 
   add(game: GameSummary) {
-    this.addGame.emit(game);
+    if (!this.onShelf) {
+      this.addGame.emit(game);
+    }
   }
 }

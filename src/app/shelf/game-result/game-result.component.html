@@ -1,14 +1,19 @@
-<mat-card (click)="add(game)" (keyup.Space)="add(game)">
+<mat-card tabindex="0" (click)="add(game)" (keyup.enter)="add(game)" [class.clickable]="!onShelf">
   <div class="game-result">
     <section class="game-details">
       <span class="mat-body">{{game.name}}</span>
       <span class="muted">({{game.yearPublished}})</span>
     </section>
-    <ng-container *ngIf="!addingGame; else spinner">
-      <mat-icon>add</mat-icon>
+    <ng-container *ngIf="onShelf; else notOnShelf">
+      <mat-icon>check</mat-icon>
     </ng-container>
-    <ng-template #spinner>
-      <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+    <ng-template #notOnShelf>
+      <ng-container *ngIf="!addingGame; else spinner">
+        <mat-icon>add</mat-icon>
+      </ng-container>
+      <ng-template #spinner>
+        <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+      </ng-template>
     </ng-template>
   </div>
 </mat-card>

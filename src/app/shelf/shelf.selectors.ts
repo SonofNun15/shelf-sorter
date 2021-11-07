@@ -14,3 +14,10 @@ export const selectGameCount = createSelector(
   selectShelfState,
   (state: ShelfState) => state.ids.length,
 );
+
+export function selectGameOnShelf(gameId: string) {
+  return createSelector(
+    selectShelfState,
+    (state: ShelfState) => state.entities[gameId] != null,
+  );
+}

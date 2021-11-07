@@ -8,18 +8,18 @@
       </button>
     </mat-form-field>
   </form>
-  <section *ngIf="results$ | async as games">
+  <section *ngIf="searching || games != null">
     <h4 class="mat-h4">Results</h4>
     <ng-container *ngIf="searching; else resultsDisplay">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </ng-container>
     <ng-template #resultsDisplay>
-      <ng-container *ngIf="games.length > 0; else empty">
+      <ng-container *ngIf="(games ?? []).length > 0; else empty">
         <app-game-result
-          tabindex="0"
           *ngFor="let game of games"
           [game]="game"
-          [addingGame]="exists(adding$ | async)"
+          [addingGame]="adding?.id === game.id"
+          [onShelf]="!!(onShelf(game) | async)"
           class="game-result"
           (addGame)="addGame($event)"
         ></app-game-result>

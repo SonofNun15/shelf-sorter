@@ -1,14 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { delay, Observable, Subject, switchMap, tap } from 'rxjs';
-import { GameDetail } from 'src/app/models/game-detail';
+import { delay, Observable, Subject, switchMap } from 'rxjs';
 import { GameSummary } from 'src/app/models/game-summary';
 import { GameFinderService } from 'src/app/services/game-finder.service';
 import { IStore } from 'src/app/store';
-import { any } from 'src/app/utils/array';
-import { exists } from 'src/app/utils/boolean';
 import { addGame } from '../shelf.actions';
+import { selectGameOnShelf } from '../shelf.selectors';
 
 @Component({
   selector: 'app-add-games',
@@ -21,9 +19,9 @@ export class AddGamesComponent {
   });
 
   searching = false;
-  adding$: Observable<GameDetail> | null = null;
+  games: GameSummary[] | null = null
+  adding: GameSummary | null = null;
   searchSubject = new Subject<string>();
-  results$: Observable<GameSummary[]>;
 
   @Output()
   close = new EventEmitter();
@@ -32,11 +30,12 @@ export class AddGamesComponent {
     private gameService: GameFinderService,
     private store: Store<IStore>,
   ) {
-    this.results$ = this.searchSubject.asObservable().pipe(
-      // delay(1500),
+    this.searchSubject.asObservable().pipe(
       switchMap(gameName => this.gameService.lookup(gameName)),
-      tap(_ => this.searching = false),
-    );
+    ).subscribe(games => {
+      this.games = games;
+      this.searching = false;
+    });
   }
 
   search({ name }: { name: string }) {
@@ -44,14 +43,15 @@ export class AddGamesComponent {
     this.searchSubject.next(name);
   }
 
-  exists(value: any) {
-    return exists(value);
+  addGame(gameSummary: GameSummary) {
+    this.adding = gameSummary;
+    this.gameService.load(gameSummary).subscribe(game => {
+      this.store.dispatch(addGame({ game }));
+      this.adding = null;
+    });
   }
 
-  addGame(gameSummary: GameSummary) {
-    this.adding$ = this.gameService.load(gameSummary).pipe(
-      delay(4000),
-      tap(game => this.store.dispatch(addGame({ game })))
-    );
+  onShelf(gameSummary: GameSummary): Observable<boolean> {
+    return this.store.select(selectGameOnShelf(gameSummary.id));
   }
 }
