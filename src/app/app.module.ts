@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
     MatButtonModule,
     MatToolbarModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [],
   bootstrap: [AppComponent]
