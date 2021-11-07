@@ -39,4 +39,9 @@ export class ShelfService {
     ].sort((x, y) => x?.name.localeCompare(y?.name));
     this.gameSubject.next(newGames);
   }
+
+  removeFromShelf(game: GameDetail) {
+    const games = this.gameSubject.value.filter(g => g.id !== game.id);
+    this.gameSubject.next(games);
+  }
 }

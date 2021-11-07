@@ -14,4 +14,8 @@ export class ListComponent {
   constructor(private shelf: ShelfService) {
     this.games$ = this.shelf.games$;
   }
+
+  removeGame(game: GameDetail) {
+    this.shelf.removeFromShelf(game);
+  }
 }

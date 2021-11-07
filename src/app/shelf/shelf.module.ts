@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from'@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { ListComponent } from './list/list.component';
 import { AddGamesComponent } from './add-games/add-games.component';
@@ -37,6 +39,8 @@ import { GameDisplayComponent } from './game-display/game-display.component';
     MatFormFieldModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatMenuModule,
+    MatDividerModule,
   ]
 })
 export class ShelfModule { }

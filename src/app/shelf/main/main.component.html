@@ -6,10 +6,15 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <section class="game-shelf">
-      <button mat-raised-button (click)="sidenav.open()">
-        <mat-icon>add</mat-icon>
-        Add Games
-      </button>
+      <div class="toolbar">
+        <button mat-raised-button (click)="sidenav.open()">
+          <mat-icon>add</mat-icon>
+          Add Games
+        </button>
+        <div>
+          <span>{{gameCount$ | async}} games</span>
+        </div>
+      </div>
       <app-list></app-list>
     </section>
   </mat-sidenav-content>

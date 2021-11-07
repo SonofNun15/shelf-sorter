@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GameDetail } from 'src/app/models/game-detail';
 
 @Component({
@@ -9,6 +9,9 @@ import { GameDetail } from 'src/app/models/game-detail';
 export class GameDisplayComponent {
   @Input()
   game: GameDetail | undefined;
+
+  @Output()
+  removeGame = new EventEmitter<GameDetail>();
 
   constructor() { }
 }
