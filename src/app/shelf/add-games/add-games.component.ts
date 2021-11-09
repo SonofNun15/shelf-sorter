@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { delay, Observable, Subject, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { GameSummary } from 'src/app/models/game-summary';
 import { GameFinderService } from 'src/app/services/game-finder.service';
 import { IStore } from 'src/app/store';
@@ -20,8 +20,7 @@ export class AddGamesComponent {
 
   searching = false;
   games: GameSummary[] | null = null
-  adding: GameSummary | null = null;
-  searchSubject = new Subject<string>();
+  adding = new Set<string>();
 
   @Output()
   close = new EventEmitter();
@@ -29,26 +28,29 @@ export class AddGamesComponent {
   constructor(
     private gameService: GameFinderService,
     private store: Store<IStore>,
-  ) {
-    this.searchSubject.asObservable().pipe(
-      switchMap(gameName => this.gameService.lookup(gameName)),
-    ).subscribe(games => {
+  ) {}
+
+  search({ name }: { name: string }) {
+    this.searching = true;
+    this.gameService.lookup(name).subscribe(games => {
       this.games = games;
       this.searching = false;
     });
   }
 
-  search({ name }: { name: string }) {
-    this.searching = true;
-    this.searchSubject.next(name);
+  addGame(gameSummary: GameSummary) {
+    this.adding.add(gameSummary.id);
+    this.gameService.load(gameSummary).subscribe(game => {
+      if (game != null) {
+        this.store.dispatch(addGame({ game }));
+      }
+
+      this.adding.delete(gameSummary.id);
+    });
   }
 
-  addGame(gameSummary: GameSummary) {
-    this.adding = gameSummary;
-    this.gameService.load(gameSummary).subscribe(game => {
-      this.store.dispatch(addGame({ game }));
-      this.adding = null;
-    });
+  addingGame(gameSummary: GameSummary) {
+    return this.adding.has(gameSummary.id);
   }
 
   onShelf(gameSummary: GameSummary): Observable<boolean> {

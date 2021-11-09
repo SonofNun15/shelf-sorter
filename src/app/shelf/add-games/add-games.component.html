@@ -18,7 +18,7 @@
         <app-game-result
           *ngFor="let game of games"
           [game]="game"
-          [addingGame]="adding?.id === game.id"
+          [addingGame]="addingGame(game)"
           [onShelf]="!!(onShelf(game) | async)"
           class="game-result"
           (addGame)="addGame($event)"
