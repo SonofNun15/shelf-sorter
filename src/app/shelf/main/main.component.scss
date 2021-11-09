@@ -14,8 +14,22 @@
   }
 }
 
+.queue {
+  position: fixed;
+  top: 64px;
+  // top: 0;
+  right: 0;
+}
+
+// .main {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+// }
+
 .game-shelf {
-  max-width: 800px;
+  max-width: 720px;
+  flex: 1 1 auto;
 
   .toolbar {
     margin: 1rem;

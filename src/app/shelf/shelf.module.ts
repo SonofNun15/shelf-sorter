@@ -19,6 +19,7 @@ import { AddGamesComponent } from './add-games/add-games.component';
 import { GameResultComponent } from './game-result/game-result.component';
 import { GameDisplayComponent } from './game-display/game-display.component';
 import { VarDirective } from '../utils/app-var';
+import { QueueComponent } from './queue/queue.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { VarDirective } from '../utils/app-var';
     GameResultComponent,
     GameDisplayComponent,
     VarDirective,
+    QueueComponent,
   ],
   imports: [
     CommonModule,

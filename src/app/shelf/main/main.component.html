@@ -5,17 +5,22 @@
     ></app-add-games>
   </mat-sidenav>
   <mat-sidenav-content>
-    <section class="game-shelf">
-      <div class="toolbar">
-        <button mat-raised-button (click)="sidenav.open()">
-          <mat-icon>add</mat-icon>
-          Add Games
-        </button>
-        <div>
-          <span>{{gameCount$ | async}} games</span>
+    <div class="main">
+      <section class="game-shelf">
+        <div class="toolbar">
+          <button mat-raised-button (click)="sidenav.open()">
+            <mat-icon>add</mat-icon>
+            Add Games
+          </button>
+          <div>
+            <span>{{gameCount$ | async}} games</span>
+          </div>
         </div>
-      </div>
-      <app-list></app-list>
-    </section>
+        <app-list></app-list>
+      </section>
+      <aside class="queue">
+        <app-queue></app-queue>
+      </aside>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

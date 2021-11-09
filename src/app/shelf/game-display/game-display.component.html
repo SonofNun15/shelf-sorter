@@ -5,7 +5,10 @@
       <h3 class="name mat-h3">{{game?.name}}</h3>
       <h4 class="year mat-h4">({{game?.yearPublished}})</h4>
       <p class="players">Players: {{game?.minPlayers}} - {{game?.maxPlayers}}</p>
-      <p class="duration">Duration: {{game?.minPlayTime}} - {{game?.maxPlayTime}} minutes</p>
+      <p class="duration">Duration:
+        <span *ngIf="game?.minPlayTime !== game?.maxPlayTime">{{game?.minPlayTime}}</span>
+        <span> ~ {{game?.maxPlayTime}} minutes</span>
+      </p>
       <p class="age">Age: {{game?.minAge}}+</p>
     </div>
     <button mat-icon-button [matMenuTriggerFor]="gameMenu">
