@@ -21,7 +21,6 @@ import { ListComponent } from './list/list.component';
 import { AddGamesComponent } from './add-games/add-games.component';
 import { GameResultComponent } from './game-result/game-result.component';
 import { GameDisplayComponent } from './game-display/game-display.component';
-import { VarDirective } from '../utils/app-var';
 import { QueueComponent } from './queue/queue.component';
 import { GameInQueueComponent } from './game-in-queue/game-in-queue.component';
 
@@ -32,7 +31,6 @@ import { GameInQueueComponent } from './game-in-queue/game-in-queue.component';
     AddGamesComponent,
     GameResultComponent,
     GameDisplayComponent,
-    VarDirective,
     QueueComponent,
     GameInQueueComponent,
   ],
