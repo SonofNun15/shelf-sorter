@@ -22,3 +22,20 @@ export interface Link {
 }
 
 export type BggType = 'boardgamecategory' | 'boardgamemechanic' | 'boardgamefamily' | 'boardgameexpansion' | 'boardgamedesigner' | 'boardgameartist' | 'boardgamepublisher';
+
+export const emptyGame: GameDetail = {
+  id: '',
+  description: '',
+  image: '',
+  thumbnail: '',
+  link: [],
+  minPlayers: 0,
+  maxPlayers: 0,
+  minAge: 0,
+  minPlayTime: 0,
+  playingTime: 0,
+  maxPlayTime: 0,
+  name: '',
+  alternateNames: [],
+  yearPublished: '',
+};

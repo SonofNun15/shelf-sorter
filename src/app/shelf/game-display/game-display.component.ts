@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { GameDetail } from 'src/app/models/game-detail';
+import { emptyGameRecord, GameRecord } from 'src/app/models/game-record';
 
 @Component({
   selector: 'app-game-display',
@@ -8,10 +8,18 @@ import { GameDetail } from 'src/app/models/game-detail';
 })
 export class GameDisplayComponent {
   @Input()
-  game: GameDetail | undefined;
+  game: GameRecord = emptyGameRecord;
 
   @Output()
-  removeGame = new EventEmitter<GameDetail>();
+  addGameToQueue = new EventEmitter<GameRecord>();
 
-  constructor() { }
+  @Output()
+  play = new EventEmitter<GameRecord>();
+
+  @Output()
+  removeGame = new EventEmitter<GameRecord>();
+
+  plays(game: GameRecord): number {
+    return game.plays?.length;
+  }
 }

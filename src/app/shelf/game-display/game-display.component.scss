@@ -8,16 +8,20 @@
     max-height: 160px;
   }
 
-  .name {
-    margin-bottom: 0;
-  }
-
-  .year {
-    margin-top: 0;
-    color: #aaa;
-  }
-
   .description {
     flex: 1 1 auto;
+
+    .name {
+      margin-bottom: 0;
+    }
+
+    .year {
+      margin-top: 0;
+      color: #aaa;
+    }
+  }
+
+  .plays {
+    margin: 1rem;
   }
 }

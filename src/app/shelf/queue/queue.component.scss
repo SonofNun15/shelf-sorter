@@ -1,6 +1,5 @@
 div.sidebar {
   width: 400px;
-  min-height: 200px;
   margin: 1rem;
 
   display: flex;
@@ -14,4 +13,20 @@ div.sidebar {
   &>button {
     align-self: flex-start;
   }
+
+  p.no-results {
+    margin-bottom: 1rem;
+    color: #aaa;
+    font-style: italic;
+  }
+}
+
+ul {
+  padding: 0;
+  background: white;
+  min-height: 80px;
+}
+
+li {
+  list-style: none;
 }

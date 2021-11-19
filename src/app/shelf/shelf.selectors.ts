@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { GameDetail } from '../models/game-detail';
+import { GameRecord } from '../models/game-record';
 import { IStore } from '../store';
 import { ShelfState } from './shelf.reducer';
 
@@ -7,7 +7,7 @@ export const selectShelfState = (state: IStore) => state.shelf;
 
 export const selectGames = createSelector(
   selectShelfState,
-  (state: ShelfState): GameDetail[] => state.ids.map(gameId => state.entities[gameId] as GameDetail),
+  (state: ShelfState): GameRecord[] => state.ids.map(gameId => state.entities[gameId] as GameRecord),
 );
 
 export const selectGameCount = createSelector(

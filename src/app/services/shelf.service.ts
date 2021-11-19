@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, EMPTY, Observable, of } from 'rxjs';
-import { GameDetail } from '../models/game-detail';
+import { EMPTY, Observable, of } from 'rxjs';
+import { GameRecord } from '../models/game-record';
 
 const shelfKey = 'boardGameShelf';
 
@@ -8,13 +8,13 @@ const shelfKey = 'boardGameShelf';
   providedIn: 'root'
 })
 export class ShelfService {
-  load(): Observable<GameDetail[]> {
+  load(): Observable<GameRecord[]> {
     const gamesJson = localStorage.getItem(shelfKey) ?? '[]';
-    const games: GameDetail[] = JSON.parse(gamesJson);
+    const games: GameRecord[] = JSON.parse(gamesJson);
     return of(games);
   }
 
-  save(games: GameDetail[]): Observable<void> {
+  save(games: GameRecord[]): Observable<void> {
     const gamesJson = JSON.stringify(games);
     localStorage.setItem(shelfKey, gamesJson);
     return EMPTY;

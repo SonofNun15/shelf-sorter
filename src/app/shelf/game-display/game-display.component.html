@@ -11,11 +11,20 @@
       </p>
       <p class="age">Age: {{game?.minAge}}+</p>
     </div>
+    <div class="plays">
+      <span
+        [matBadge]="plays(game)"
+        matBadgeDescription="Number of plays"
+        matTooltip="Number of plays"
+      ></span>
+    </div>
     <button mat-icon-button [matMenuTriggerFor]="gameMenu">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #gameMenu="matMenu">
-      <button mat-menu-item>Add to queue</button>
+      <button mat-menu-item (click)="addGameToQueue.emit(game)">Add to queue</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="play.emit(game)">Play</button>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="removeGame.emit(game)">Remove from shelf</button>
     </mat-menu>

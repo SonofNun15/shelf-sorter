@@ -1,9 +1,20 @@
-ul.shelf {
-  list-style: none;
+div.game-list {
   margin: 1rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;//center;
+}
+
+ul {
+  list-style: none;
   padding: 0;
 }
 
-li.item {
+li {
+  list-style: none;
   margin-bottom: 1rem;
+  cursor: pointer;
 }

@@ -13,12 +13,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { VarDirective } from './utils/app-var';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // VarDirective,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +35,11 @@ import { VarDirective } from './utils/app-var';
     MatToolbarModule,
     StoreModule.forRoot(store),
     EffectsModule.forRoot(effects),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

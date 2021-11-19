@@ -17,8 +17,11 @@
 .queue {
   position: fixed;
   top: 64px;
-  // top: 0;
+  top: 0;
   right: 0;
+  height: 100vh;
+
+  overflow-y: auto;
 }
 
 // .main {
@@ -30,11 +33,4 @@
 .game-shelf {
   max-width: 720px;
   flex: 1 1 auto;
-
-  .toolbar {
-    margin: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { fromGameDetail } from 'src/app/models/game-record';
 import { GameSummary } from 'src/app/models/game-summary';
 import { GameFinderService } from 'src/app/services/game-finder.service';
 import { IStore } from 'src/app/store';
@@ -42,7 +43,8 @@ export class AddGamesComponent {
     this.adding.add(gameSummary.id);
     this.gameService.load(gameSummary).subscribe(game => {
       if (game != null) {
-        this.store.dispatch(addGame({ game }));
+        const gameRecord = fromGameDetail(game);
+        this.store.dispatch(addGame({ game: gameRecord }));
       }
 
       this.adding.delete(gameSummary.id);

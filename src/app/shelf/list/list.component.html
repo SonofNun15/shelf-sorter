@@ -1,5 +1,42 @@
-<ul class="shelf">
-  <li class="item" *ngFor="let game of games$ | async">
-    <app-game-display (removeGame)="removeGame($event)" [game]="game"></app-game-display>
-  </li>
-</ul>
+<div class="game-list">
+  <header class="toolbar">
+    <button mat-raised-button (click)="addGameToShelf.emit()">
+      <mat-icon>add</mat-icon>
+      Add Games
+    </button>
+    <mat-form-field appearance="fill">
+      <mat-label>Filter games</mat-label>
+      <input name="game-filter" matInput [formControl]="filterCtrl" />
+      <mat-icon matSuffix>filter_list</mat-icon>
+    </mat-form-field>
+    <div>
+      <span>
+        <span *ngIf="gameCount !== totalGameCount">
+          {{gameCount}} of
+        </span>
+        {{totalGameCount}} games
+      </span>
+    </div>
+  </header>
+  <ul
+    id="shelf"
+    cdkDropListConnectedTo="queue"
+    cdkDropList
+    [cdkDropListData]="games"
+    cdkDropListSortingDisabled
+  >
+    <li
+      class="item"
+      cdkDrag
+      [cdkDragData]="game"
+      *ngFor="let game of games"
+    >
+      <app-game-display
+        (addGameToQueue)="addGameToQueue($event)"
+        (play)="play($event)"
+        (removeGame)="removeGame($event)"
+        [game]="game"
+      ></app-game-display>
+    </li>
+  </ul>
+</div>

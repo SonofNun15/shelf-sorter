@@ -1,6 +1,30 @@
 <div class="sidebar">
-  <mat-card>
-    <h3 class="mat-h3">Queue</h3>
+  <mat-card
+    id="queue"
+    cdkDropListConnectedTo="shelf"
+    cdkDropList
+    (cdkDropListDropped)="add($event)"
+  >
+    <h3 class="mat-h3">Queue <span class="muted">({{queue?.length}})</span></h3>
+    <ul
+      cdkDropList
+      (cdkDropListDropped)="drop($event)"
+    >
+      <ng-container *ngIf="queue != null && queue.length === 0">
+        <p class="no-results">Empty</p>
+      </ng-container>
+      <li *ngFor="let game of queue" cdkDrag [cdkDragData]="game">
+        <app-game-in-queue
+          [game]="game"
+          (play)="play($event)"
+          (remove)="remove($event)"
+          (moveToTop)="moveToTop($event)"
+          (moveUp)="moveUp($event)"
+          (moveDown)="moveDown($event)"
+          (moveToBottom)="moveToBottom($event)"
+        ></app-game-in-queue>
+      </li>
+    </ul>
   </mat-card>
   <button mat-raised-button>
     <mat-icon>casino</mat-icon>
