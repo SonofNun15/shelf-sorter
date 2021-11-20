@@ -21,3 +21,10 @@ export function selectGameOnShelf(gameId: string) {
     (state: ShelfState) => state.entities[gameId] != null,
   );
 }
+
+export function selectGame(gameId: string) {
+  return createSelector(
+    selectShelfState,
+    (state: ShelfState) => state.entities[gameId],
+  );
+}

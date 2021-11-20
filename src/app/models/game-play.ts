@@ -5,3 +5,8 @@ export interface GamePlay {
 
   scores: Score[] | null;
 }
+
+export const emptyPlay = {
+  date: new Date(),
+  scores: [],
+}

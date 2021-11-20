@@ -7,6 +7,7 @@
   >
     <h3 class="mat-h3">Queue <span class="muted">({{queue?.length}})</span></h3>
     <ul
+      class="items"
       cdkDropList
       (cdkDropListDropped)="drop($event)"
     >

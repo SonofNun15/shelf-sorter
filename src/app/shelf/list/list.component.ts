@@ -1,10 +1,14 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, Observable, startWith, Subscription, withLatestFrom } from 'rxjs';
+import { GamePlay } from 'src/app/models/game-play';
 import { GameRecord } from 'src/app/models/game-record';
 import { IStore } from 'src/app/store';
 import { isNullOrWhitespace } from 'src/app/utils/string';
+import { AddPlayDialogComponent } from '../add-play-dialog/add-play-dialog.component';
+import { PlaysDisplayDialogComponent, PlaysDisplayDialogData } from '../plays-display-dialog/plays-display-dialog.component';
 import { addToQueue } from '../queue.actions';
 import { playGame, removeGame } from '../shelf.actions';
 import { selectGameCount, selectGames } from '../shelf.selectors';
@@ -26,7 +30,10 @@ export class ListComponent implements OnDestroy {
   @Output()
   addGameToShelf = new EventEmitter();
 
-  constructor(private store: Store<IStore>) {
+  constructor(
+    private store: Store<IStore>,
+    private dialog: MatDialog,
+  ) {
     this.filter$ = this.filterCtrl.valueChanges.pipe(
       startWith(''),
     );
@@ -56,7 +63,22 @@ export class ListComponent implements OnDestroy {
   }
 
   play(game: GameRecord) {
-    this.store.dispatch(playGame({ gameId: game.id, scores: null }));
+    const dialogRef = this.dialog.open<AddPlayDialogComponent, GameRecord>(AddPlayDialogComponent, {
+      data: game,
+    });
+    const sub = dialogRef.afterClosed().subscribe((result: GamePlay | null) => {
+      sub?.unsubscribe();
+
+      if (result != null) {
+        this.store.dispatch(playGame({ gameId: game.id, play: result }));
+      }
+    });
+  }
+
+  showPlays(game: GameRecord) {
+    this.dialog.open<PlaysDisplayDialogComponent, PlaysDisplayDialogData>(PlaysDisplayDialogComponent, {
+      data: { gameId: game.id },
+    });
   }
 
   removeGame(game: GameRecord) {

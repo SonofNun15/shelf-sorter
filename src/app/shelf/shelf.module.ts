@@ -16,6 +16,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { ListComponent } from './list/list.component';
 import { AddGamesComponent } from './add-games/add-games.component';
@@ -23,6 +26,10 @@ import { GameResultComponent } from './game-result/game-result.component';
 import { GameDisplayComponent } from './game-display/game-display.component';
 import { QueueComponent } from './queue/queue.component';
 import { GameInQueueComponent } from './game-in-queue/game-in-queue.component';
+import { AddPlayDialogComponent } from './add-play-dialog/add-play-dialog.component';
+import { PlaysDisplayDialogComponent } from './plays-display-dialog/plays-display-dialog.component';
+import { PlayDisplayComponent } from './play-display/play-display.component';
+import { GamePickerComponent } from './game-picker/game-picker.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +40,10 @@ import { GameInQueueComponent } from './game-in-queue/game-in-queue.component';
     GameDisplayComponent,
     QueueComponent,
     GameInQueueComponent,
+    AddPlayDialogComponent,
+    PlaysDisplayDialogComponent,
+    PlayDisplayComponent,
+    GamePickerComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +62,12 @@ import { GameInQueueComponent } from './game-in-queue/game-in-queue.component';
     MatDividerModule,
     MatBadgeModule,
     MatTooltipModule,
-  ]
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+  ],
 })
 export class ShelfModule { }

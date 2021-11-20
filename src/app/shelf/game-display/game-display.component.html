@@ -11,13 +11,15 @@
       </p>
       <p class="age">Age: {{game?.minAge}}+</p>
     </div>
-    <div class="plays">
-      <span
-        [matBadge]="plays(game)"
-        matBadgeDescription="Number of plays"
-        matTooltip="Number of plays"
-      ></span>
-    </div>
+    <button
+      (click)="showPlays.emit(game)"
+      mat-icon-button
+      [matBadge]="plays(game)"
+      matBadgePosition="above after"
+      matTooltip="Number of plays"
+    >
+      <mat-icon>play_arrow</mat-icon>
+    </button>
     <button mat-icon-button [matMenuTriggerFor]="gameMenu">
       <mat-icon>more_vert</mat-icon>
     </button>

@@ -1,0 +1,38 @@
+<div>
+  <form [formGroup]="playForm" (ngSubmit)="save()">
+    <h2 class="mat-h2">{{game.name}}</h2>
+    <h3 class="mat-h3">Enter play</h3>
+    <mat-form-field appearence="filled">
+      <mat-label>Date</mat-label>
+      <input matInput formControlName="date" [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <ul class="items">
+      <li *ngFor="let scoreCtrl of scoreCtrls.controls; let i = index">
+        <div class="player-score" [formGroup]="asFormGroup(scoreCtrl)">
+          <mat-form-field appearence="filled">
+            <mat-label>Player Name</mat-label>
+            <input matInput formControlName="playerName" name="player-name" />
+          </mat-form-field>
+          <mat-form-field appearence="filled">
+            <mat-label>Score</mat-label>
+            <input matInput formControlName="points" name="points" type="number" />
+          </mat-form-field>
+          <button mat-icon-button (click)="removeScore(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </li>
+    </ul>
+    <button type="button" mat-raised-button (click)="addScore()">
+      <mat-icon>add</mat-icon>
+      Add score
+    </button>
+    <mat-divider class="dialog-footer"></mat-divider>
+    <footer class="actions">
+      <button type="button" mat-button (click)="close()">Cancel</button>
+      <button type="submit" mat-button color="primary">Save</button>
+    </footer>
+  </form>
+</div>

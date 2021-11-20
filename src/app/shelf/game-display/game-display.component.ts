@@ -17,6 +17,9 @@ export class GameDisplayComponent {
   play = new EventEmitter<GameRecord>();
 
   @Output()
+  showPlays = new EventEmitter<GameRecord>();
+
+  @Output()
   removeGame = new EventEmitter<GameRecord>();
 
   plays(game: GameRecord): number {

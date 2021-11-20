@@ -1,0 +1,18 @@
+<div>
+  <h2 class="mat-h2">{{(game$ | async)?.name}}</h2>
+  <h3 class="mat-h3">Previous plays ({{playCount$ | async}})</h3>
+  <ul class="items">
+    <li *ngFor="let play of plays$ | async as plays; let i = index">
+      <app-play-display [play]="play" (remove)="removePlay(plays, i)"></app-play-display>
+    </li>
+  </ul>
+  <ng-container *ngIf="(playCount$ | async) === 0">
+    <p class="muted">None</p>
+  </ng-container>
+  <mat-divider class="dialog-footer"></mat-divider>
+  <footer class="actions">
+    <button mat-button (click)="close()">
+      Close
+    </button>
+  </footer>
+</div>

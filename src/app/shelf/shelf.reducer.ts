@@ -1,7 +1,8 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
+import { GamePlay } from '../models/game-play';
 import { GameRecord } from '../models/game-record';
-import { addGame, gamesLoaded, playGame, removeGame } from './shelf.actions';
+import { addGame, gamesLoaded, playGame, removeGame, updatePlays } from './shelf.actions';
 
 export type ShelfState = EntityState<GameRecord>;
 
@@ -23,20 +24,29 @@ export const shelfReducer = createReducer(
   on(removeGame, (state, { game }) => {
     return shelfAdapter.removeOne(game.id, state);
   }),
-  on(playGame, (state, { gameId, scores }) => {
+  on(playGame, (state, { gameId, play }) => {
     const game = state.entities[gameId];
     if (game != null) {
-      return shelfAdapter.updateOne({
-        id: gameId,
-        changes: {
-          plays: [...game.plays, {
-            date: new Date(),
-            scores,
-          }],
-        },
-      }, state);
+      return updateGamePlays(state, game, [...game.plays, play]);
+    } else {
+      return state;
+    }
+  }),
+  on(updatePlays, (state, { gameId, plays }) => {
+    const game = state.entities[gameId];
+    if (game != null) {
+      return updateGamePlays(state, game, plays);
     } else {
       return state;
     }
   }),
 );
+
+function updateGamePlays(state: ShelfState, game: GameRecord, plays: GamePlay[]) {
+  return shelfAdapter.updateOne({
+    id: game.id,
+    changes: {
+      plays,
+    },
+  }, state);
+}

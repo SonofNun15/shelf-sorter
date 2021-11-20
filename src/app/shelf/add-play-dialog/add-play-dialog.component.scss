@@ -1,0 +1,10 @@
+.player-score {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 0.5rem;
+
+  mat-form-field {
+    flex: 1 1 100px;
+  }
+}

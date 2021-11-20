@@ -1,9 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { GamePlay } from 'src/app/models/game-play';
 import { GameRecord } from 'src/app/models/game-record';
 import { IStore } from 'src/app/store';
+import { AddPlayDialogComponent } from '../add-play-dialog/add-play-dialog.component';
 import { addToQueue, moveDownInQueue, moveInQueue, moveToBottomOfQueue, moveToTopOfQueue, moveUpInQueue, removeFromQueue } from '../queue.actions';
 import { selectQueue } from '../queue.selectors';
 import { playGame } from '../shelf.actions';
@@ -17,7 +20,10 @@ export class QueueComponent implements OnDestroy {
   private sub: Subscription;
   queue: GameRecord[] | null = null;
 
-  constructor(private store: Store<IStore>) {
+  constructor(
+    private store: Store<IStore>,
+    private dialog: MatDialog,
+  ) {
     this.sub = this.store.select(selectQueue).subscribe(queue => {
       this.queue = queue;
     });
@@ -36,7 +42,16 @@ export class QueueComponent implements OnDestroy {
   }
 
   play(game: GameRecord) {
-    this.store.dispatch(playGame({ gameId: game.id, scores: null }));
+    let dialogRef = this.dialog.open<AddPlayDialogComponent, GameRecord>(AddPlayDialogComponent, {
+      data: game,
+    });
+    const sub = dialogRef.afterClosed().subscribe((result: GamePlay | null) => {
+      sub?.unsubscribe();
+
+      if (result != null) {
+        this.store.dispatch(playGame({ gameId: game.id, play: result }));
+      }
+    });
   }
 
   remove(game: GameRecord) {
