@@ -66,13 +66,6 @@ export class ListComponent implements OnDestroy {
     const dialogRef = this.dialog.open<AddPlayDialogComponent, GameRecord>(AddPlayDialogComponent, {
       data: game,
     });
-    const sub = dialogRef.afterClosed().subscribe((result: GamePlay | null) => {
-      sub?.unsubscribe();
-
-      if (result != null) {
-        this.store.dispatch(playGame({ gameId: game.id, play: result }));
-      }
-    });
   }
 
   showPlays(game: GameRecord) {

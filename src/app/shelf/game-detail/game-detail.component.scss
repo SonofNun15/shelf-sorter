@@ -1,0 +1,15 @@
+.game-detail {
+  display: flex;
+  justify-content: align-start;
+  align-self: stretch;
+  align-items: center;
+
+  img {
+    max-width: 40px;
+    max-height: 40px;
+  }
+
+  p {
+    margin: 0.5rem;
+  }
+}

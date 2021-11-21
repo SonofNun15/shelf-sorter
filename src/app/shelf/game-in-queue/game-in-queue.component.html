@@ -1,8 +1,5 @@
 <div class="game-in-queue">
-  <div class="game-detail">
-    <img [src]="game.thumbnail" />
-    <p>{{game.name}}</p>
-  </div>
+  <app-game-detail [game]="game"></app-game-detail>
   <div class="actions">
     <button mat-icon-button (click)="play.emit(game)">
       <mat-icon>play_arrow</mat-icon>

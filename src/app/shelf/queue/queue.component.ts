@@ -7,6 +7,7 @@ import { GamePlay } from 'src/app/models/game-play';
 import { GameRecord } from 'src/app/models/game-record';
 import { IStore } from 'src/app/store';
 import { AddPlayDialogComponent } from '../add-play-dialog/add-play-dialog.component';
+import { GamePickerComponent } from '../game-picker/game-picker.component';
 import { addToQueue, moveDownInQueue, moveInQueue, moveToBottomOfQueue, moveToTopOfQueue, moveUpInQueue, removeFromQueue } from '../queue.actions';
 import { selectQueue } from '../queue.selectors';
 import { playGame } from '../shelf.actions';
@@ -45,13 +46,6 @@ export class QueueComponent implements OnDestroy {
     let dialogRef = this.dialog.open<AddPlayDialogComponent, GameRecord>(AddPlayDialogComponent, {
       data: game,
     });
-    const sub = dialogRef.afterClosed().subscribe((result: GamePlay | null) => {
-      sub?.unsubscribe();
-
-      if (result != null) {
-        this.store.dispatch(playGame({ gameId: game.id, play: result }));
-      }
-    });
   }
 
   remove(game: GameRecord) {
@@ -72,5 +66,9 @@ export class QueueComponent implements OnDestroy {
 
   moveToBottom(game: GameRecord) {
     this.store.dispatch(moveToBottomOfQueue({ gameId: game.id }));
+  }
+
+  openPicker() {
+    this.dialog.open(GamePickerComponent);
   }
 }

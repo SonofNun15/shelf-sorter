@@ -1,1 +1,103 @@
-<p>game-picker works!</p>
+<div class="picker-container">
+  <h2 class="mat-h2">Random Game Picker</h2>
+  <form [formGroup]="pickForm" (ngSubmit)="draw()">
+    <div class="draw-form">
+      <h3 class="mat-h3">Source</h3>
+      <mat-radio-group formControlName="source" aria-label="Select source">
+        <mat-radio-button [value]="queue">Queue</mat-radio-button>
+        <mat-radio-button [value]="shelf">Shelf</mat-radio-button>
+      </mat-radio-group>
+      <h3 clas="mat-h3">Filters</h3>
+      <div class="filters">
+        <div formGroupName="playerCount">
+          <mat-slide-toggle formControlName="enabled">Player count</mat-slide-toggle>
+          <section *ngIf="playerCountCtrl.value">
+            <mat-radio-group formControlName="direction" aria-label="Select greater or less than">
+              <mat-radio-button [value]="atLeast">At least</mat-radio-button>
+              <mat-radio-button [value]="atMost">At most</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="fill">
+              <mat-label>Number of players</mat-label>
+              <input formControlName="value" matInput name="player-count" type="number" />
+            </mat-form-field>
+          </section>
+        </div>
+        <div formGroupName="duration">
+          <mat-slide-toggle formControlName="enabled">Duration</mat-slide-toggle>
+          <section *ngIf="durationCtrl.value">
+            <mat-radio-group formControlName="direction" aria-label="Select greater or less than">
+              <mat-radio-button [value]="atLeast">At least</mat-radio-button>
+              <mat-radio-button [value]="atMost">At most</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="fill">
+              <mat-label>Duration (minutes)</mat-label>
+              <input formControlName="value" matInput name="duration" type="number" />
+            </mat-form-field>
+          </section>
+        </div>
+        <div formGroupName="age">
+          <mat-slide-toggle formControlName="enabled">Age</mat-slide-toggle>
+          <section *ngIf="ageCtrl.value">
+            <mat-radio-group formControlName="direction" aria-label="Select greater or less than">
+              <mat-radio-button [value]="atLeast">At least</mat-radio-button>
+              <mat-radio-button [value]="atMost">At most</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="fill">
+              <mat-label>Age</mat-label>
+              <input formControlName="value" matInput name="age" type="number" />
+            </mat-form-field>
+          </section>
+        </div>
+        <div formGroupName="rating">
+          <mat-slide-toggle formControlName="enabled">Rating</mat-slide-toggle>
+          <section class="rating-controls" *ngIf="ratingCtrl.value">
+            <div class="emojis">
+              <app-emoji class="emoji1" name="slightly_frowning_face" *ngIf="ratingValueCtrl.value === 1"></app-emoji>
+              <app-emoji class="emoji2" name="neutral_face" *ngIf="ratingValueCtrl.value === 2"></app-emoji>
+              <app-emoji class="emoji3" name="slightly_smiling_face" *ngIf="ratingValueCtrl.value === 3"></app-emoji>
+              <app-emoji class="emoji4" name="smiley" *ngIf="ratingValueCtrl.value === 4"></app-emoji>
+              <app-emoji class="emoji5" name="grinning_face_with_star_eyes" *ngIf="ratingValueCtrl.value === 5"></app-emoji>
+            </div>
+            <div class="slide-container">
+              <mat-slider
+                min="1"
+                max="5"
+                step="1"
+                thumbLabel="false"
+                tickInterval="1"
+                formControlName="value"
+              ></mat-slider>
+            </div>
+          </section>
+        </div>
+      </div>
+      <button
+        class="draw"
+        type="submit"
+        mat-raised-button color="primary"
+      >
+        <mat-icon>casino</mat-icon>
+        Draw
+      </button>
+    </div>
+  </form>
+  <mat-divider class="separator"></mat-divider>
+  <section>
+    <ng-container *ngIf="result != null; else noGame">
+      <app-game-detail [game]="result"></app-game-detail>
+    </ng-container>
+    <ng-template #noGame>
+      <p class="muted">No game drawn</p>
+    </ng-template>
+  </section>
+  <mat-divider class="dialog-footer"></mat-divider>
+  <footer class="actions">
+    <button mat-button (click)="close()">Close</button>
+    <button
+      mat-button
+      color="primary"
+      (click)="play()"
+      [disabled]="result == null"
+    >Play</button>
+  </footer>
+</div>

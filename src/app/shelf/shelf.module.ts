@@ -19,6 +19,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
 
 import { ListComponent } from './list/list.component';
 import { AddGamesComponent } from './add-games/add-games.component';
@@ -30,6 +33,8 @@ import { AddPlayDialogComponent } from './add-play-dialog/add-play-dialog.compon
 import { PlaysDisplayDialogComponent } from './plays-display-dialog/plays-display-dialog.component';
 import { PlayDisplayComponent } from './play-display/play-display.component';
 import { GamePickerComponent } from './game-picker/game-picker.component';
+import { EmojiComponent } from '../emoji/emoji/emoji.component';
+import { GameDetailComponent } from './game-detail/game-detail.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +49,8 @@ import { GamePickerComponent } from './game-picker/game-picker.component';
     PlaysDisplayDialogComponent,
     PlayDisplayComponent,
     GamePickerComponent,
+    EmojiComponent,
+    GameDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +72,9 @@ import { GamePickerComponent } from './game-picker/game-picker.component';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatSliderModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },

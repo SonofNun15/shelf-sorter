@@ -1,7 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import { GameRecord } from 'src/app/models/game-record';
+import { IStore } from 'src/app/store';
+import { playGame } from '../shelf.actions';
 
 @Component({
   templateUrl: './add-play-dialog.component.html',
@@ -17,6 +20,7 @@ export class AddPlayDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<AddPlayDialogComponent>,
+    private store: Store<IStore>,
     @Inject(MAT_DIALOG_DATA) public game: GameRecord,
   ) { }
 
@@ -44,6 +48,7 @@ export class AddPlayDialogComponent {
   }
 
   save() {
+    this.store.dispatch(playGame({ gameId: this.game.id, play: this.playForm.value }));
     this.dialogRef.close(this.playForm.value);
   }
 }
