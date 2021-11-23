@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { EMPTY, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { GameRecord } from 'src/app/models/game-record';
 import { DrawGameService, FilterDirection, PickSource } from 'src/app/services/draw-game.service';
 import { AddPlayDialogComponent } from '../add-play-dialog/add-play-dialog.component';

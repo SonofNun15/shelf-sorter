@@ -24,3 +24,11 @@ export function split<TItem>(
     array.filter(item => !predicate(item)),
   ];
 }
+
+export function elementAt<TItem>(array: TItem[], index: number): TItem | null {
+  if (array != null) {
+    return array[index];
+  }
+
+  return null;
+}

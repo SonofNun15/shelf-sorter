@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as emojiData from '../emoji.json';
 
 @Component({
@@ -11,12 +11,14 @@ import * as emojiData from '../emoji.json';
   styles: [
   ]
 })
-export class EmojiComponent implements OnInit {
+export class EmojiComponent implements OnChanges {
   @Input() name: string = 'smile';
   @Input() size: string ='30';
   emojiIcon = '';
 
-  ngOnInit() {
-    this.emojiIcon = (emojiData as any)[this.name];
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['name'].currentValue !== changes['name'].previousValue) {
+      this.emojiIcon = (emojiData as any)[this.name];
+    }
   }
 }

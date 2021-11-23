@@ -20,4 +20,16 @@
       color: #aaa;
     }
   }
+
+  .rating {
+    width: 60px;
+
+    .mat-select-value-text {
+      font-size: 40px;
+    }
+  }
+}
+
+.muted {
+  font-style: italic;
 }

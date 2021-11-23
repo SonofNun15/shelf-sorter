@@ -71,7 +71,7 @@ export class DrawGameService {
       filterPlayerCount(filters.playerCount),
       filterDuration(filters.duration),
       filterAge(filters.age),
-      // filterRating(filters.rating),
+      filterRating(filters.rating),
     ]
   }
 
@@ -116,8 +116,14 @@ function filterAge(ageFilter: FilterWithDirection<number>): FilterFunc {
   );
 }
 
-// function filterRating(ratingFilter: Filter<number>): FilterFunc {
-//   return generalFilter(ratingFilter, filter =>
-//       games => games.filter(game => game.rating >= filter.value)
-//   );
-// }
+function filterRating(ratingFilter: Filter<number>): FilterFunc {
+  return generalFilter(ratingFilter, filter =>
+      games => games.filter(game => {
+        if (game.rating != null) {
+          return game.rating >= filter.value;
+        } else {
+          return false;
+        }
+      })
+  );
+}

@@ -16,6 +16,7 @@ export interface GameRecord {
   yearPublished: string;
 
   plays: GamePlay[],
+  rating: number | null,
 }
 
 export function fromGameDetail(game: GameDetail): GameRecord {
@@ -33,6 +34,7 @@ export function fromGameDetail(game: GameDetail): GameRecord {
     name: game.name,
     yearPublished: game.yearPublished,
     plays: [],
+    rating: null,
   } as GameRecord;
 }
 

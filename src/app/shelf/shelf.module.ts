@@ -22,6 +22,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSelectModule } from '@angular/material/select';
 
 import { ListComponent } from './list/list.component';
 import { AddGamesComponent } from './add-games/add-games.component';
@@ -75,6 +76,7 @@ import { GameDetailComponent } from './game-detail/game-detail.component';
     MatRadioModule,
     MatSlideToggleModule,
     MatSliderModule,
+    MatSelectModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },

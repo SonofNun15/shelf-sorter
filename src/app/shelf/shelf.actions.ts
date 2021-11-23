@@ -11,3 +11,4 @@ export const removeGame = createAction('[Shelf] Remove game', props<{ game: Game
 
 export const playGame = createAction('[General] Play game', props<{ gameId: string, play: GamePlay }>());
 export const updatePlays = createAction('[General] Update game plays', props<{ gameId: string, plays: GamePlay[] }>());
+export const rateGame = createAction('[General] Rate game', props<{ gameId: string, rating: number | null }>());

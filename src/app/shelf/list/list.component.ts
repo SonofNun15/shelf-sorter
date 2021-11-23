@@ -10,7 +10,7 @@ import { isNullOrWhitespace } from 'src/app/utils/string';
 import { AddPlayDialogComponent } from '../add-play-dialog/add-play-dialog.component';
 import { PlaysDisplayDialogComponent, PlaysDisplayDialogData } from '../plays-display-dialog/plays-display-dialog.component';
 import { addToQueue } from '../queue.actions';
-import { playGame, removeGame } from '../shelf.actions';
+import { playGame, rateGame, removeGame } from '../shelf.actions';
 import { selectGameCount, selectGames } from '../shelf.selectors';
 
 @Component({
@@ -63,7 +63,7 @@ export class ListComponent implements OnDestroy {
   }
 
   play(game: GameRecord) {
-    const dialogRef = this.dialog.open<AddPlayDialogComponent, GameRecord>(AddPlayDialogComponent, {
+    this.dialog.open<AddPlayDialogComponent, GameRecord>(AddPlayDialogComponent, {
       data: game,
     });
   }
@@ -76,5 +76,9 @@ export class ListComponent implements OnDestroy {
 
   removeGame(game: GameRecord) {
     this.store.dispatch(removeGame({ game }));
+  }
+
+  rateGame(game: GameRecord, rating: number | null) {
+    this.store.dispatch(rateGame({ gameId: game.id, rating }));
   }
 }

@@ -5,7 +5,7 @@ import { EMPTY } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { ShelfService } from '../services/shelf.service';
 import { IStore } from '../store';
-import { addGame, gamesLoaded, loadGames, playGame, removeGame, updatePlays } from './shelf.actions';
+import { addGame, gamesLoaded, loadGames, playGame, rateGame, removeGame, updatePlays } from './shelf.actions';
 import { selectGames } from './shelf.selectors';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class ShelfEffects implements OnInitEffects {
   ));
 
   saveGames$ = createEffect(() => this.actions$.pipe(
-    ofType(addGame, removeGame, playGame, updatePlays),
+    ofType(addGame, removeGame, playGame, updatePlays, rateGame),
     concatLatestFrom(() => this.store.select(selectGames)),
     switchMap(([_, games]) => {
       return this.shelfService.save(games);

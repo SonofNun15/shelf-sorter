@@ -11,6 +11,24 @@
       </p>
       <p class="age">Age: {{game?.minAge}}+</p>
     </div>
+    <mat-form-field class="rating">
+      <mat-label>Rating</mat-label>
+      <mat-select [formControl]="ratingCtrl">
+        <mat-select-trigger>
+          <app-emoji
+            *ngIf="ratingCtrl.value != null"
+            [name]="ratingCtrl.value[1]"
+            size="28"
+          ></app-emoji>
+        </mat-select-trigger>
+        <mat-option *ngFor="let rating of ratingOptions" [value]="rating">
+          <app-emoji *ngIf="rating != null; else clear" [name]="rating[1]"></app-emoji>
+          <ng-template #clear>
+            <span class="muted">Clear</span>
+          </ng-template>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <button
       (click)="showPlays.emit(game)"
       mat-icon-button

@@ -37,6 +37,7 @@
         (play)="play($event)"
         (showPlays)="showPlays($event)"
         (removeGame)="removeGame($event)"
+        (gameRated)="rateGame($event.game, $event.rating)"
         [game]="game"
       ></app-game-display>
     </li>
